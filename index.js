@@ -27,10 +27,16 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+
+  Counter1 is a function expression. It can later be invoked to output a result.
+  Counter2 is a function decleration and can be hoisted.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+  Counter2 uses a closure, by reaching outside of its scope and into the global scope to find the value of 'count'. 
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ Counter1 would be preferable when you need the result of counterMaker to be saved and compounded upon in another function later in the script.
+ Counter2 would be preferable when you want to update the value of count.
  *
 */
 
@@ -43,6 +49,8 @@ function counterMaker() {
 }
 
 const counter1 = counterMaker();
+
+
 
 // counter2 code
 let count = 0;
