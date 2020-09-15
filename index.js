@@ -68,7 +68,8 @@ function inning(){
 return Math.floor(Math.random()*3);
 }
 
-console.log(`The team scored`, inning(), `points.`);
+console.log(`The team scored ${inning()} points.`);
+
 
 /* Task 3: finalScore()
 
@@ -86,34 +87,25 @@ finalScore(inning, 9) might return:
 
 
 
+function finalScore(cb, numOfInnings){
+  let teamBlue = 0;
+  let teamRed = 0;
 
-function finalScore(cb, numOfInnings) {
+for(let i = 0; i < numOfInnings; i++) {
+    teamBlue += cb();
+    teamRed += cb();
+}
+ 
+return {home: teamBlue, away: teamRed}
+}
 
-  function scoreSet(inning, numOfInnings) {
-    console.log(inning += numOfInnings);
-  }//scoreSet
-  NewInnings = {};
-  let totalScore = new NewInnings({'home': cb(),'away': cb(),})
-   //totalScore
-  console.log(totalScore);
-}//finalScore
-
-console.log(finalScore(inning, 9))
-console.log(totalScore);
-
-
-
-// function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
-//}
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
 
-(1) Callback function `getInningScore`
+(1) Callback function `finalScore`
 (2) Callback function `inning`
 (2) A number of innings
 
@@ -131,8 +123,24 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+
+
+
+function scoreboard(cb, cb2, numOfInnings) {
+ const container = []
+ let counter;
+ for (let counter = 1; counter < numOfInnings+1; counter++) {
+   if(counter == 1){
+      container.push(`${counter}st inning`, {homeTeam:cb(), awayTeam: cb()})
+   } else if (counter === 2){
+     container.push(`${counter}nd inning: `, {homeTeam:cb(), awayTeam: cb()})
+   } else if (counter === 3){
+     container.push(`${counter}rd inning: `, {homeTeam:cb(), awayTeam: cb()})
+   } else {
+     container.push(`${counter}th inning: `, {homeTeam:cb(), awayTeam: cb()})
+   }
 }
-
-
+ container.push(`Final score: `)
+ return container
+}
+console.log("Scoreboard: ", scoreboard(inning, finalScore, 9));
