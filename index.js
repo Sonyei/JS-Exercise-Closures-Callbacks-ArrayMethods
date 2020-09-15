@@ -96,8 +96,16 @@ for(let i = 1; i < numOfInnings+1; i++) {
     setHomeScore.push(teamHome += cb());
     setAwayScore.push(teamAway += cb());
 }
- console.log(`Home`,setHomeScore);
- console.log(`Away`, setAwayScore);
+    function tallyScore(array){
+      let sum = 0;
+      for(let i =0; i< array.length; i++){
+      sum += array[i];
+      }//for loop
+      return sum;
+      }//tallyScore
+console.log(`Home -->`, tallyScore(setHomeScore));
+console.log(`Away--> `, tallyScore(setAwayScore));
+
 return (`{teamAway:${teamAway} teamHome:${teamHome}}`)
 }
 
@@ -129,6 +137,7 @@ Final Score: awayTeam - homeTeam */
 
 function scoreboard(cb, cb2, numOfInnings) {
  let container = []
+
  for (let counter = 1; counter < numOfInnings+1; counter++) {
     if(counter == 1){
       container.push(`${counter}st inning:` + cb2(cb, 1));
@@ -141,6 +150,9 @@ function scoreboard(cb, cb2, numOfInnings) {
       }//if statement
    }//for loop
    console.log(container);
-} //scoreboard function
-// console.log("Scoreboard: ") 
+} //scoreboard function cycleArrays(numOfInnings){
+  //let sum = 0;
+//for(let i = 0; i < numOfInnings.length; i++)
+// sum += vals[i];
+//} 
 scoreboard(inning, finalScore, 9);
