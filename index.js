@@ -87,28 +87,26 @@ finalScore(inning, 9) might return:
 
 
 
-function finalScore(cb, numOfInnings){
-  let setAwayScore = [];
-  let setHomeScore = [];
-  let teamHome = 0;
-  let teamAway = 0;
-  let setTally;
-for(let i = 0; i < numOfInnings; i++) {
-    setHomeScore.push(teamHome += cb());
-    console.log("inside for-loop Home Score", setHomeScore);
-    setAwayScore.push(teamAway += cb());
-    console.log("inside for-loop Away Score", setAwayScore);
+function finalScore(cb, numOfInnings) {
+	let setAwayScore = []
+	let setHomeScore = []
+	for (let i = 0; i < numOfInnings; i++) {
+		setHomeScore.push({ Home: cb() })
+		setAwayScore.push({ Away: cb() })
+	}
+	const finalHomeScore = setHomeScore.reduce(function(tally, item) {
+		return item.Home + tally
+	}, 0)
+	const finalAwayScore = setAwayScore.reduce(function(tally, item) {
+		return item.Away + tally
+	}, 0)
+	// console.log(setHomeScore.lastIndexOf)
+	// console.log(setAwayScore.lastIndexOf)
+	// return setHomeScore + setAwayScore + `{teamAway:${teamAway} teamHome:${teamHome}}`
+	// return ` Home: ${setHomeScore} Away: ${setAwayScore}  teamAway:${finalAwayScore} teamHome:${finalHomeScore}`
+	return [ setHomeScore, setAwayScore, { "Final Home Score": finalHomeScore }, { "Final Away Score": finalAwayScore} ]
 }
-    console.log(setHomeScore.reduce(function(tally, item){
-      return item += tally;
-         }, 0));
-    console.log(setHomeScore.lastIndexOf);
-    console.log(setAwayScore.lastIndexOf);
-
-return setHomeScore + setAwayScore + (`{teamAway:${teamAway} teamHome:${teamHome}}`)
-}
-
-console.log(`This is task 3--->`, finalScore(inning, 9));
+console.log(`This is task 3--->`, finalScore(inning, 9))
 
 
 /* Task 4: 
@@ -148,6 +146,6 @@ function scoreboard(cb, cb2, numOfInnings) {
      container.push(`${counter}th inning:` + cb2(cb, 1));
       }//if statement
    }//for loop
-   console.log(container + (setHomeScore.lastIndexOf) + (setAwayScore.lastIndexOf));
+   console.log(container);
 } 
 console.log(scoreboard(inning, finalScore));
