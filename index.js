@@ -28,7 +28,7 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
 
-  Counter1 is a function expression. It can later be invoked to output a result.
+  Counter1 is a function expression. It can not be hoisted.
   Counter2 is a function decleration and can be hoisted.
  * 
  * 2. Which of the two uses a closure? How can you tell?
@@ -88,28 +88,28 @@ finalScore(inning, 9) might return:
 
 
 function finalScore(cb, numOfInnings){
-  let teamHome = 0;
-  let teamAway = 0;
   let setAwayScore = [];
   let setHomeScore = [];
-for(let i = 1; i < numOfInnings+1; i++) {
+  let teamHome = 0;
+  let teamAway = 0;
+  let setTally;
+for(let i = 0; i < numOfInnings; i++) {
     setHomeScore.push(teamHome += cb());
+    console.log("inside for-loop Home Score", setHomeScore);
     setAwayScore.push(teamAway += cb());
+    console.log("inside for-loop Away Score", setAwayScore);
 }
-    function tallyScore(array){
-      let sum = 0;
-      for(let i =0; i< array.length; i++){
-      sum += array[i];
-      }//for loop
-      return sum;
-      }//tallyScore
-console.log(`Home -->`, tallyScore(setHomeScore));
-console.log(`Away--> `, tallyScore(setAwayScore));
+    console.log(setHomeScore.reduce(function(tally, item){
+      return item += tally;
+         }, 0));
+    console.log(setHomeScore.lastIndexOf);
+    console.log(setAwayScore.lastIndexOf);
 
-return (`{teamAway:${teamAway} teamHome:${teamHome}}`)
+return setHomeScore + setAwayScore + (`{teamAway:${teamAway} teamHome:${teamHome}}`)
 }
 
-console.log(`This is task 3--->`, finalScore(inning, 0));
+console.log(`This is task 3--->`, finalScore(inning, 9));
+
 
 /* Task 4: 
 
@@ -137,7 +137,6 @@ Final Score: awayTeam - homeTeam */
 
 function scoreboard(cb, cb2, numOfInnings) {
  let container = []
-
  for (let counter = 1; counter < numOfInnings+1; counter++) {
     if(counter == 1){
       container.push(`${counter}st inning:` + cb2(cb, 1));
@@ -149,10 +148,6 @@ function scoreboard(cb, cb2, numOfInnings) {
      container.push(`${counter}th inning:` + cb2(cb, 1));
       }//if statement
    }//for loop
-   console.log(container);
-} //scoreboard function cycleArrays(numOfInnings){
-  //let sum = 0;
-//for(let i = 0; i < numOfInnings.length; i++)
-// sum += vals[i];
-//} 
-scoreboard(inning, finalScore, 9);
+   console.log(container + (setHomeScore.lastIndexOf) + (setAwayScore.lastIndexOf));
+} 
+console.log(scoreboard(inning, finalScore));
