@@ -86,19 +86,26 @@ finalScore(inning, 9) might return:
 */
 
 
-let getInningScore = function() {
-  let homeTeam = 0;
-  let awayTeam = 0;
-homeTeam = homeTeam + inning();
-awayTeam = awayTeam + inning();
-  return `${homeTeam} - ${awayTeam}`;
+
+function finalScore(cb, numOfInnings){
+  let teamBlue = 0;
+  let teamRed = 0;
+
+for(let i = 0; i < numOfInnings; i++) {
+    teamBlue += cb();
+    teamRed += cb();
 }
+ 
+return {home: teamBlue, away: teamRed}
+}
+
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
 
-(1) Callback function `finalScore`
+(1) Callback function `getFinalScore`
 (2) Callback function `inning`
 (2) A number of innings
 
@@ -117,21 +124,21 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
+
 function scoreboard(cb, cb2, numOfInnings) {
  const container = []
- let counter;
  for (let counter = 1; counter < numOfInnings+1; counter++) {
    if(counter == 1){
-      container.push(`${counter}st inning: ${getInningScore()}`)
+      container.push(`${counter} `, {homeTeam:cb(), awayTeam: cb()})
    } else if (counter === 2){
-     container.push(`${counter}nd inning:: ${getInningScore()}`)
+     container.push(`${counter}nd inning: `, {homeTeam:cb(), awayTeam: cb()})
    } else if (counter === 3){
-     container.push(`${counter}rd inning:: ${getInningScore()}`)
+     container.push(`${counter}rd inning: `, {homeTeam:cb(), awayTeam: cb()})
    } else {
-     container.push(`${counter}th inning:: ${getInningScore()}`)
+     container.push(`${counter}th inning: `, {homeTeam:cb(), awayTeam: cb()})
    }
 }
- container.push(`Final score: ${cb2()}`);
+ container.push(`Final score: `, cb2(cb, numOfInnings))
  return container
 }
-console.log("Scoreboard: ", scoreboard(inning, getInningScore, 9));
+console.log("Scoreboard: ", scoreboard(inning, finalScore, 9));
