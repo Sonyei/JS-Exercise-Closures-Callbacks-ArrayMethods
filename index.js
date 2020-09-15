@@ -86,20 +86,13 @@ finalScore(inning, 9) might return:
 */
 
 
-
-function finalScore(cb, numOfInnings){
-  let teamBlue = 0;
-  let teamRed = 0;
-
-for(let i = 0; i < numOfInnings; i++) {
-    teamBlue += cb();
-    teamRed += cb();
+let getInningScore = function() {
+  let homeTeam = 0;
+  let awayTeam = 0;
+homeTeam = homeTeam + inning();
+awayTeam = awayTeam + inning();
+  return `${homeTeam} - ${awayTeam}`;
 }
- 
-return {home: teamBlue, away: teamRed}
-}
-
-console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -124,23 +117,21 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-
-
 function scoreboard(cb, cb2, numOfInnings) {
  const container = []
  let counter;
  for (let counter = 1; counter < numOfInnings+1; counter++) {
    if(counter == 1){
-      container.push(`${counter}st inning`, {homeTeam:cb(), awayTeam: cb()})
+      container.push(`${counter}st inning: ${getInningScore()}`)
    } else if (counter === 2){
-     container.push(`${counter}nd inning: `, {homeTeam:cb(), awayTeam: cb()})
+     container.push(`${counter}nd inning:: ${getInningScore()}`)
    } else if (counter === 3){
-     container.push(`${counter}rd inning: `, {homeTeam:cb(), awayTeam: cb()})
+     container.push(`${counter}rd inning:: ${getInningScore()}`)
    } else {
-     container.push(`${counter}th inning: `, {homeTeam:cb(), awayTeam: cb()})
+     container.push(`${counter}th inning:: ${getInningScore()}`)
    }
 }
- container.push(`Final score: `)
+ container.push(`Final score: ${cb2()}`);
  return container
 }
-console.log("Scoreboard: ", scoreboard(inning, finalScore, 9));
+console.log("Scoreboard: ", scoreboard(inning, getInningScore, 9));
