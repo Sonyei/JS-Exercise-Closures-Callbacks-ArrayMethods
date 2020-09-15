@@ -90,13 +90,15 @@ finalScore(inning, 9) might return:
 function finalScore(cb, numOfInnings){
   let teamHome = 0;
   let teamAway = 0;
-  let x = "";
+  let setAwayScore = [];
+  let setHomeScore = [];
 for(let i = 1; i < numOfInnings+1; i++) {
-    teamHome += cb();
-    teamAway += cb();
+    setHomeScore.push(teamHome += cb());
+    setAwayScore.push(teamAway += cb());
 }
- 
-return (`{homeTeam:${teamHome} awayTeam:${teamAway}}`)
+ console.log(`Home`,setHomeScore);
+ console.log(`Away`, setAwayScore);
+return (`{teamAway:${teamAway} teamHome:${teamHome}}`)
 }
 
 console.log(`This is task 3--->`, finalScore(inning, 0));
@@ -126,24 +128,19 @@ Final Score: awayTeam - homeTeam */
 
 
 function scoreboard(cb, cb2, numOfInnings) {
- const container = []
+ let container = []
  for (let counter = 1; counter < numOfInnings+1; counter++) {
- console.log(`${counter}) inning`, cb2(cb, 1));
-
-
-//  container.push(`Final score: {scoreHomeTotal}, {scoreAwayTotal}`);
-// container.map.reduce(homeTeam.value, awayTeam.value);
-
-//sum of score values
-// let scoreHomeTotal = container.reduce(function(prev, cur) {
-//   return prev + cur.homeTeam;
-// }, 0);
-// return('home', scoreHomeTotal);
-
-}
-return(container);
-
-
-
-}
-console.log("Scoreboard: ", scoreboard(inning, finalScore, 9));
+    if(counter == 1){
+      container.push(`${counter}st inning:` + cb2(cb, 1));
+       } else if (counter === 2){
+     container.push(`${counter}nd inning:` + cb2(cb, 1));
+      } else if (counter === 3){
+     container.push(`${counter}rd inning:` + cb2(cb, 1));
+      } else {
+     container.push(`${counter}th inning:` + cb2(cb, 1));
+      }//if statement
+   }//for loop
+   console.log(container);
+} //scoreboard function
+// console.log("Scoreboard: ") 
+scoreboard(inning, finalScore, 9);
